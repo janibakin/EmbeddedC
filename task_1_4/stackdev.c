@@ -72,18 +72,18 @@ static const struct file_operations stack_fops = {
     .read = stack_read,
 };
 
-// Инициализация модуля
+// Module initialisation
 static int __init stack_init(void) {
     int ret;
 
-    // Резервируем номер устройства
+    // Register character device number
     ret = alloc_chrdev_region(&dev_num, 0, 1, DEVICE_NAME);
     if (ret < 0) {
         pr_err("stackdev: failed to allocate device number\n");
         return ret;
     }
 
-    // Инициализируем символьное устройство
+    // Initialise character device
     cdev_init(&stack_cdev, &stack_fops);
     stack_cdev.owner = THIS_MODULE;
 
@@ -98,7 +98,7 @@ static int __init stack_init(void) {
     return 0;
 }
 
-// Выгрузка модуля
+// Unregister character device and clean up
 static void __exit stack_exit(void) {
     cdev_del(&stack_cdev);
     unregister_chrdev_region(dev_num, 1);
