@@ -65,7 +65,7 @@ int main() {
         fprintf(stderr, "Неверный ввод.\n");
         return EXIT_FAILURE;
     }
-    // allocate dynamic memory
+    // выделить динамическую память
     allocate(&matrix, rows, cols);
 
     // вывод до генерации случайных чисел
@@ -81,6 +81,7 @@ int main() {
     // вывести сумму всех элементов в матрице
     printf("Cумма элементов матрицы: %ld\n\n\n", get_matrix_sum(matrix, rows, cols));
 
+    // освободить динамическую память
     deallocate(&matrix);
     return EXIT_SUCCESS;
 }
