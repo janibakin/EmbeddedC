@@ -9,7 +9,6 @@ Instructions
    237 это major number
 5. убедитесь что есть права на чтение и запись
     `sudo chmod 666 /dev/stackdev`
-6. Собрать тест: `gcc test_stack_device.c -o test_stack_device`
-7. Запустить тест: `./test_stack_device`
-8. Удалить устройство: `sudo rmmod stackdev`
-9. `make clean` удалить скомпилированные файлы
+6. Запустить тест: `./test_stack_device`
+7. Удалить устройство: `sudo rmmod stackdev`
+8. `make clean` удалить скомпилированные файлы
