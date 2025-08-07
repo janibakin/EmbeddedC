@@ -1,0 +1,15 @@
+Instructions
+
+1. `cd task_1_4`
+2. Собрать модуль `make`
+3. `sudo insmod stackdev.ko`
+4. `sudo mknod /dev/stackdev c <major_number> 0`
+   major_number можно взять из `dmesg | grep stackdev`
+   Например: [25882.455055] stackdev: module loaded, device number 237:0
+   237 это major number
+5. убедитесь что есть права на чтение и запись
+    `sudo chmod 666 /dev/stackdev`
+6. Собрать тест: `gcc test_stack_device.c -o test_stack_device`
+7. Запустить тест: `./test_stack_device`
+8. Удалить устройство: `sudo rmmod stackdev`
+9. `make clean` удалить скомпилированные файлы
