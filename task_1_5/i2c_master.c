@@ -38,23 +38,19 @@ void I2C1_Init(void) {
 void I2C1_StartReception(uint8_t slaveAddr, uint8_t *buffer, uint8_t length,
                          uint8_t stopBit) {
   // Wait until I2C1 is not busy
-  while (I2C_GetFlagStatus(I2C1, I2C_FLAG_BUSY))
-    ;
+  while (I2C_GetFlagStatus(I2C1, I2C_FLAG_BUSY));
   // Send start condition
   I2C_GenerateSTART(I2C1, ENABLE);
   // Wait for start condition sent successfully
-  while (!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_MODE_SELECT))
-    ;
+  while (!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_MODE_SELECT));
   // Send slave address
   I2C_Send8bitAddress(I2C1, slaveAddr, I2C_Direction_Transmitter);
   // Wait for slave address sent successfully
-  while (!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED))
-    ;
+  while (!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED));
   for (uint8_t i = 0; i < length; i++) {
     I2C_ReceiveData(I2C1, buffer[i]);
     // Wait for data received successfully
-    while (!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_BYTE_RECEIVED))
-      ;
+    while (!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_BYTE_RECEIVED));
   }
   if (stopBit) {
     // Send stop condition
@@ -63,18 +59,15 @@ void I2C1_StartReception(uint8_t slaveAddr, uint8_t *buffer, uint8_t length,
 }
 void I2C1_ReadData(uint8_t slaveAddr, uint8_t *buffer, uint8_t length) {
   // Wait until I2C1 is not busy
-  while (I2C_GetFlagStatus(I2C1, I2C_FLAG_BUSY))
-    ;
+  while (I2C_GetFlagStatus(I2C1, I2C_FLAG_BUSY));
   // Send start condition
   I2C_GenerateSTART(I2C1, ENABLE);
   // Wait for start condition sent successfully
-  while (!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_MODE_SELECT))
-    ;
+  while (!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_MODE_SELECT));
   // Send slave address
   I2C_Send8bitAddress(I2C1, slaveAddr, I2C_Direction_Receiver);
   // Wait for slave address sent successfully
-  while (!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_RECEIVER_MODE_SELECTED))
-    ;
+  while (!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_RECEIVER_MODE_SELECTED));
   // Read data
   for (uint8_t i = 0; i < length; i++) {
     if (i == (length - 1)) {
@@ -82,8 +75,7 @@ void I2C1_ReadData(uint8_t slaveAddr, uint8_t *buffer, uint8_t length) {
       I2C_AcknowledgeConfig(I2C1, DISABLE);
     }
     // Wait for data received successfully
-    while (!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_BYTE_RECEIVED))
-      ;
+    while (!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_BYTE_RECEIVED));
     buffer[i] = I2C_ReceiveData(I2C1);
   }
   // Enable Acknowledgement
@@ -102,7 +94,6 @@ int main(void) {
   data[0] = 0x01;
   data[1] = 0x02;
   I2C1_StartTransmission(I2C_SLAVE_ADDRESS, data, 2, 1);
-  while (1)
-    ;
+  while (1);
   return 0;
 }

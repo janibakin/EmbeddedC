@@ -29,18 +29,15 @@ int main(void) {
   I2C1_Init();
   while (1) {
     // Wait for the start condition
-    while (!I2C_CheckEvent(I2C1, I2C_EVENT_SLAVE_RECEIVER_ADDRESS_MATCHED))
-      ;
+    while (!I2C_CheckEvent(I2C1, I2C_EVENT_SLAVE_RECEIVER_ADDRESS_MATCHED));
     // Check the data
     for (uint8_t i = 0; i < 2; i++) {
-      while (!I2C_CheckEvent(I2C1, I2C_EVENT_SLAVE_BYTE_RECEIVED))
-        ;
+      while (!I2C_CheckEvent(I2C1, I2C_EVENT_SLAVE_BYTE_RECEIVED));
       data[i] = I2C_ReceiveData(I2C1);
     }
     // Process data
     // Wait for stop condition
-    while (!I2C_CheckEvent(I2C1, I2C_EVENT_SLAVE_STOP_DETECTED))
-      ;
+    while (!I2C_CheckEvent(I2C1, I2C_EVENT_SLAVE_STOP_DETECTED));
     I2C_ClearFlag(I2C1, I2C_FLAG_STOPF);
   }
 }
