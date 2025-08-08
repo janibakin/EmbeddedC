@@ -44,7 +44,7 @@ void I2C1_StartReception(uint8_t slaveAddr, uint8_t *buffer, uint8_t length,
   // Wait for start condition sent successfully
   while (!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_MODE_SELECT));
   // Send slave address
-  I2C_Send8bitAddress(I2C1, slaveAddr, I2C_Direction_Transmitter);
+  I2C_Send7bitAddress(I2C1, slaveAddr, I2C_Direction_Transmitter);
   // Wait for slave address sent successfully
   while (!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED));
   for (uint8_t i = 0; i < length; i++) {
@@ -65,7 +65,7 @@ void I2C1_ReadData(uint8_t slaveAddr, uint8_t *buffer, uint8_t length) {
   // Wait for start condition sent successfully
   while (!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_MODE_SELECT));
   // Send slave address
-  I2C_Send8bitAddress(I2C1, slaveAddr, I2C_Direction_Receiver);
+  I2C_Send7bitAddress(I2C1, slaveAddr, I2C_Direction_Receiver);
   // Wait for slave address sent successfully
   while (!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_RECEIVER_MODE_SELECTED));
   // Read data
